@@ -41,7 +41,10 @@ public abstract class WalkingEntity extends BaseEntity {
 
         double near = Integer.MAX_VALUE;
 
-        for (Entity entity : this.getLevel().getEntities()) {
+
+        Entity[] entities = this.getLevel().getEntities();
+        for (int i = 0; i < entities.length; ++i) {
+            Entity entity = entities[i];
             if (entity == this || !(entity instanceof EntityCreature) || entity instanceof Animal) {
                 continue;
             }
@@ -61,7 +64,6 @@ public abstract class WalkingEntity extends BaseEntity {
             this.moveTime = 0;
             this.followTarget = creature;
             if (this.route == null && this.passengers.isEmpty()) this.target = creature;
-
         }
 
         if (this.followTarget instanceof EntityCreature && !((EntityCreature) this.followTarget).closed && this.followTarget.isAlive() && this.targetOption((EntityCreature) this.followTarget, this.distanceSquared(this.followTarget)) && this.target != null) {

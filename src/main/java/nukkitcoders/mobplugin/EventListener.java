@@ -231,7 +231,8 @@ public class EventListener implements Listener {
                 aab.offset(-Math.sin(player.getYaw() * Math.PI / 180) * i, i * kk, Math.cos(player.getYaw() * Math.PI / 180) * i);
                 Entity entities[] = player.getLevel().getCollidingEntities(aab);
                 if (entities.length > 0) {
-                    for (Entity e : entities) {
+                    for (int j = 0; j < entities.length; ++j) {
+                        Entity e = entities[j];
                         if (e instanceof Enderman) {
                             ((Enderman) e).stareToAngry();
                         }

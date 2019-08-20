@@ -34,7 +34,10 @@ public abstract class SwimmingEntity extends BaseEntity {
 
         double near = Integer.MAX_VALUE;
 
-        for (Entity entity : this.getLevel().getEntities()) {
+        Entity[] entities = this.getLevel().getEntities();
+        for (int i = 0; i < entities.length; ++i) {
+            Entity entity = entities[i];
+
             if (entity == this || !(entity instanceof EntityCreature) || entity instanceof Animal) {
                 continue;
             }

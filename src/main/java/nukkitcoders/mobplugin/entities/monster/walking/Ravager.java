@@ -82,8 +82,10 @@ public class Ravager extends WalkingMonster {
                 };
 
                 float points = 0;
-                for (Item i : ((Player) player).getInventory().getArmorContents()) {
-                    points += armorValues.getOrDefault(i.getId(), 0f);
+                Item[] items = ((Player) player).getInventory().getArmorContents();
+                for (int i = 0; i < items.length; ++i) {
+                    Item item = items[i];
+                    points += armorValues.getOrDefault(item.getId(), 0f);
                 }
 
                 damage.put(EntityDamageEvent.DamageModifier.ARMOR, (float) (damage.getOrDefault(EntityDamageEvent.DamageModifier.ARMOR, 0f) - Math.floor(damage.getOrDefault(EntityDamageEvent.DamageModifier.BASE, 1f) * points * 0.04)));

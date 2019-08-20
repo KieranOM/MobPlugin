@@ -116,8 +116,10 @@ public class PolarBear extends WalkingMonster {
                 };
 
                 float points = 0;
-                for (Item i : ((Player) player).getInventory().getArmorContents()) {
-                    points += armorValues.getOrDefault(i.getId(), 0f);
+                Item[] items = ((Player) player).getInventory().getArmorContents();
+                for (int i = 0; i < items.length; ++i) {
+                    Item item = items[i];
+                    points += armorValues.getOrDefault(item.getId(), 0f);
                 }
 
                 damage.put(EntityDamageEvent.DamageModifier.ARMOR,

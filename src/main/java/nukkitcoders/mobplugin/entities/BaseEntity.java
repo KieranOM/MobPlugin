@@ -181,17 +181,21 @@ public abstract class BaseEntity extends EntityCreature implements EntityAgeable
         double movZ = dz * moveMultifier;
 
         AxisAlignedBB[] list = this.level.getCollisionCubes(this, this.level.getTickRate() > 1 ? this.boundingBox.getOffsetBoundingBox(dx, dy, dz) : this.boundingBox.addCoord(dx, dy, dz));
-        for (AxisAlignedBB bb : list) {
+        for (int i=0; i<list.length; ++i) {
+            AxisAlignedBB bb = list[i];
             dx = bb.calculateXOffset(this.boundingBox, dx);
         }
+
         this.boundingBox.offset(dx, 0, 0);
 
-        for (AxisAlignedBB bb : list) {
+        for (int i=0; i<list.length; ++i) {
+            AxisAlignedBB bb = list[i];
             dz = bb.calculateZOffset(this.boundingBox, dz);
         }
         this.boundingBox.offset(0, 0, dz);
 
-        for (AxisAlignedBB bb : list) {
+        for (int i=0; i<list.length; ++i) {
+            AxisAlignedBB bb = list[i];
             dy = bb.calculateYOffset(this.boundingBox, dy);
         }
         this.boundingBox.offset(0, dy, 0);

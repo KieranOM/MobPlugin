@@ -308,7 +308,8 @@ public class WalkerRouteFinder extends SimpleRouteFinder {
     }
 
     private Node getNodeInCloseByVector2(Vector3 vector2) {
-        for (Node node : this.closeList) {
+        for (int i = 0; i < this.closeList.size(); ++i) {
+            Node node = this.closeList.get(i);
             if (vector2.equals(node.getVector3())) {
                 return node;
             }
@@ -357,7 +358,8 @@ public class WalkerRouteFinder extends SimpleRouteFinder {
     private boolean hasBlocksAround(ArrayList<Vector3> list) {
         double radius = (this.entity.getWidth() * this.entity.getScale()) / 2 + 0.1;
         double height = this.entity.getHeight() * this.entity.getScale();
-        for (Vector3 vector3 : list) {
+        for (int i = 0; i < list.size(); ++i) {
+            Vector3 vector3 = list.get(i);
             AxisAlignedBB bb = new SimpleAxisAlignedBB(vector3.getX() - radius, vector3.getY(), vector3.getZ() - radius, vector3.getX() + radius, vector3.getY() + height, vector3.getZ() + radius);
             if (this.level.getCollisionBlocks(bb, true).length != 0) return true;
 

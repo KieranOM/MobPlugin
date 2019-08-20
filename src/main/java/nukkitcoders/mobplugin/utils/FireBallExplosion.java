@@ -113,7 +113,8 @@ public class FireBallExplosion extends Explosion {
         double maxZ = NukkitMath.ceilDouble(this.source.z + explosionSize + 1);
         AxisAlignedBB explosionBB = new SimpleAxisAlignedBB(minX, minY, minZ, maxX, maxY, maxZ);
         Entity[] list = this.level.getNearbyEntities(explosionBB, this.what instanceof Entity ? (Entity) this.what : null);
-        for (Entity entity : list) {
+        for (int i = 0; i < list.length; ++i) {
+            Entity entity = list[i];
             double distance = entity.distance(this.source) / explosionSize;
             if (distance <= 1) {
                 Vector3 motion = entity.subtract(this.source).normalize();
@@ -131,17 +132,22 @@ public class FireBallExplosion extends Explosion {
             }
         }
         ItemBlock air = new ItemBlock(new BlockAir());
-        for (Block block : this.affectedBlocks) {
+        for (int i = 0; i < this.affectedBlocks.size(); ++i) {
+            Block block = this.affectedBlocks.get(i);
             if (block.getId() == Block.TNT) {
                 ((BlockTNT) block).prime(Utils.rand(10, 30), this.what instanceof Entity ? (Entity) this.what : null);
             } else if (Math.random() * 100 < yield) {
-                for (Item drop : block.getDrops(air)) {
+                Item[] drops = block.getDrops(air);
+                for (int j = 0; j < drops.length; ++j) {
+                    Item drop = drops[j];
                     this.level.dropItem(block.add(0.5, 0.5, 0.5), drop);
                 }
             }
             this.level.setBlockAt((int) block.x, (int) block.y, (int) block.z, BlockID.AIR);
             Vector3 pos = new Vector3(block.x, block.y, block.z);
-            for (BlockFace side : BlockFace.values()) {
+            BlockFace[] sides = BlockFace.values();
+            for (int j = 0; j < sides.length; ++j) {
+                BlockFace side = sides[j];
                 Vector3 sideBlock = pos.getSide(side);
                 long index = Hash.hashBlock((int) sideBlock.x, (int) sideBlock.y, (int) sideBlock.z);
                 if (!this.affectedBlocks.contains(sideBlock) && !updateBlocks.contains(index)) {

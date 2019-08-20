@@ -50,7 +50,8 @@ public class AutoSpawnTask extends Thread {
     @Override
     public void run() {
         if (plugin.getServer().getOnlinePlayers().size() > 0) {
-            for (IEntitySpawner spawner : entitySpawners) {
+            for (int i = 0; i < entitySpawners.size(); ++i) {
+                IEntitySpawner spawner = entitySpawners.get(i);
                 spawner.spawn(plugin.getServer().getOnlinePlayers().values());
             }
         }
@@ -132,7 +133,9 @@ public class AutoSpawnTask extends Thread {
 
     public boolean entitySpawnAllowed(Level level, int networkId, Vector3 pos) {
         int count = 0;
-        for (Entity entity : level.getEntities()) {
+        Entity[] entities = level.getEntities();
+        for (int i = 0; i < entities.length; ++i) {
+            Entity entity = entities[i];
             if (entity.isAlive() && entity.getNetworkId() == networkId && new Vector3(pos.x, entity.y, pos.z).distanceSquared(entity) < 10000) {
                 count++;
             }

@@ -26,6 +26,8 @@ import nukkitcoders.mobplugin.entities.monster.swimming.Guardian;
 import nukkitcoders.mobplugin.entities.monster.walking.*;
 import nukkitcoders.mobplugin.entities.projectile.*;
 
+import java.util.Collection;
+
 /**
  * @author <a href="mailto:kniffman@googlemail.com">Michael Gertz (kniffo80)</a>
  */
@@ -126,7 +128,9 @@ public class MobPlugin extends PluginBase implements Listener {
             case "removeall":
                 int count = 0;
                 for (Level level : getServer().getLevels().values()) {
-                    for (Entity entity : level.getEntities()) {
+                    Entity[] entities = level.getEntities();
+                    for (int i = 0; i < entities.length; ++i) {
+                        Entity entity = entities[i];
                         if (entity instanceof BaseEntity) {
                             entity.close();
                             ++count;
@@ -138,7 +142,9 @@ public class MobPlugin extends PluginBase implements Listener {
             case "removeitems":
                 count = 0;
                 for (Level level : getServer().getLevels().values()) {
-                    for (Entity entity : level.getEntities()) {
+                    Entity[] entities = level.getEntities();
+                    for (int i = 0; i < entities.length; ++i) {
+                        Entity entity = entities[i];
                         if (entity instanceof EntityItem && entity.isOnGround()) {
                             entity.close();
                             ++count;

@@ -53,7 +53,8 @@ public abstract class AbstractEntitySpawner implements IEntitySpawner {
     }
 
     private boolean isWorldSpawnAllowed (Level level) {
-        for (String worldName : this.disabledSpawnWorlds) {
+        for (int i = 0; i < this.disabledSpawnWorlds.size(); ++i) {
+            String worldName = this.disabledSpawnWorlds.get(i);
             if (level.getName().toLowerCase().equals(worldName.toLowerCase())) {
                 return false;
             }
